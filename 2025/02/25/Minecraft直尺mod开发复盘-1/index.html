@@ -1,0 +1,702 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Liuliy">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="mc直尺mod开发复盘一、需求分析在对Java技术有一定掌握后，萌生了为儿时圆梦，想进行MinecraftMod开发。但是第一次开发mc的mod对各个接口都不熟悉，肯定要选择先开发轻量级的mod练手，于是就想起之前一个个数格子建东西的不便经历，选择开发一个能测量方块的直尺mod。 二、环境搭建 参考了b站up主北山的教程：模组开发指北- 文集 哔哩哔哩专栏，在idea导入fabric的mod模板，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Minecraft直尺mod开发复盘">
+<meta property="og:url" content="http://example.com/2025/02/25/Minecraft%E7%9B%B4%E5%B0%BAmod%E5%BC%80%E5%8F%91%E5%A4%8D%E7%9B%98-1/index.html">
+<meta property="og:site_name" content="琉璃坊">
+<meta property="og:description" content="mc直尺mod开发复盘一、需求分析在对Java技术有一定掌握后，萌生了为儿时圆梦，想进行MinecraftMod开发。但是第一次开发mc的mod对各个接口都不熟悉，肯定要选择先开发轻量级的mod练手，于是就想起之前一个个数格子建东西的不便经历，选择开发一个能测量方块的直尺mod。 二、环境搭建 参考了b站up主北山的教程：模组开发指北- 文集 哔哩哔哩专栏，在idea导入fabric的mod模板，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-02-25T09:28:00.000Z">
+<meta property="article:modified_time" content="2025-02-25T09:29:38.682Z">
+<meta property="article:author" content="Liuliy">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Minecraft直尺mod开发复盘 - 琉璃坊</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Minecraft直尺mod开发复盘"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-02-25 17:28" pubdate>
+          2025年2月25日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          43 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Minecraft直尺mod开发复盘</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="mc直尺mod开发复盘"><a href="#mc直尺mod开发复盘" class="headerlink" title="mc直尺mod开发复盘"></a>mc直尺mod开发复盘</h1><h2 id="一、需求分析"><a href="#一、需求分析" class="headerlink" title="一、需求分析"></a>一、需求分析</h2><p>在对Java技术有一定掌握后，萌生了为儿时圆梦，想进行MinecraftMod开发。但是第一次开发mc的mod对各个接口都不熟悉，肯定要选择先开发轻量级的mod练手，于是就想起之前一个个数格子建东西的不便经历，选择开发一个能测量方块的直尺mod。</p>
+<h2 id="二、环境搭建"><a href="#二、环境搭建" class="headerlink" title="二、环境搭建"></a>二、环境搭建</h2><ol>
+<li><p>参考了b站up主北山的教程：<a target="_blank" rel="noopener" href="https://www.bilibili.com/read/readlist/rl807127?spm_id_from=333.1387.0.0">模组开发指北- 文集 哔哩哔哩专栏</a>，在idea导入fabric的mod模板，进行1.20的mod开发。</p>
+</li>
+<li><p>修改对应的配置文件：</p>
+<ol>
+<li><p>fabric.mod.json中的模组信息和个人信息</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs dart">&#123;<br>	<span class="hljs-string">&quot;schemaVersion&quot;</span>: <span class="hljs-number">1</span>,<br>	<span class="hljs-string">&quot;id&quot;</span>: <span class="hljs-string">&quot;ruler-mod&quot;</span>,  <span class="hljs-comment">//mod的唯一标识符</span><br>	<span class="hljs-string">&quot;version&quot;</span>: <span class="hljs-string">&quot;<span class="hljs-subst">$&#123;version&#125;</span>&quot;</span>,<br>	<span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;Ruler Mod&quot;</span>,<br>	<span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;提供了几个用于测量的尺子&quot;</span>, <span class="hljs-comment">//mod迷哦奥数</span><br>	<span class="hljs-string">&quot;authors&quot;</span>: [<br>		<span class="hljs-string">&quot;Liuliy&quot;</span> <span class="hljs-comment">//贡献者</span><br>	],<br>	<span class="hljs-string">&quot;custom&quot;</span>: &#123;<br>		<span class="hljs-string">&quot;modmenu&quot;</span>: &#123;<br>			<span class="hljs-string">&quot;links&quot;</span>: &#123;<br>				<span class="hljs-string">&quot;modmenu.issues&quot;</span>: <span class="hljs-string">&quot;https://github.com/Liuliy1/MinecraftRulerMod/issues&quot;</span><br>			&#125;<br>		&#125;<br>	&#125;,<br>	<span class="hljs-string">&quot;contact&quot;</span>: &#123;<br>		<span class="hljs-string">&quot;sources&quot;</span>: <span class="hljs-string">&quot;https://github.com/Liuliy1/MinecraftRulerMod&quot;</span><br>	&#125;,<br>	<span class="hljs-string">&quot;license&quot;</span>: <span class="hljs-string">&quot;MIT&quot;</span>, <span class="hljs-comment">//遵循的开源协议,在LICENSE文件中修改完整内容</span><br>	<span class="hljs-string">&quot;icon&quot;</span>: <span class="hljs-string">&quot;assets/ruler-mod/icon.png&quot;</span>, <span class="hljs-comment">//贴图目录</span><br>	<span class="hljs-string">&quot;environment&quot;</span>: <span class="hljs-string">&quot;*&quot;</span>,<br>	<span class="hljs-string">&quot;entrypoints&quot;</span>: &#123; <span class="hljs-comment">//程序入口</span><br>		<span class="hljs-string">&quot;main&quot;</span>: [<br>			<span class="hljs-string">&quot;com.liuliy.ruler.RulerMod&quot;</span><br>		],<br>		<span class="hljs-string">&quot;client&quot;</span>: [<br>			<span class="hljs-string">&quot;com.liuliy.ruler.RulerModClient&quot;</span><br>		],<br>		<span class="hljs-string">&quot;fabric-datagen&quot;</span>: [<br>			<span class="hljs-string">&quot;com.liuliy.ruler.RulerModDataGenerator&quot;</span><br>		]<br>	&#125;,<br>	<span class="hljs-string">&quot;mixins&quot;</span>: [<br>		<span class="hljs-string">&quot;ruler-mod.mixins.json&quot;</span><br>	],<br>	<span class="hljs-string">&quot;depends&quot;</span>: &#123; <span class="hljs-comment">//各种版本需求</span><br>		<span class="hljs-string">&quot;fabricloader&quot;</span>: <span class="hljs-string">&quot;&gt;=0.16.10&quot;</span>,<br>		<span class="hljs-string">&quot;minecraft&quot;</span>: <span class="hljs-string">&quot;&gt;=1.20&quot;</span>,<br>		<span class="hljs-string">&quot;java&quot;</span>: <span class="hljs-string">&quot;&gt;=17&quot;</span>,<br>		<span class="hljs-string">&quot;fabric-api&quot;</span>: <span class="hljs-string">&quot;*&quot;</span><br>	&#125;,<br>	<span class="hljs-string">&quot;suggests&quot;</span>: &#123;<br>		<span class="hljs-string">&quot;another-mod&quot;</span>: <span class="hljs-string">&quot;*&quot;</span><br>	&#125;<br><br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ol>
+<h2 id="三、资料获取"><a href="#三、资料获取" class="headerlink" title="三、资料获取"></a>三、资料获取</h2><p>主要是 [<a target="_blank" rel="noopener" href="https://wiki.fabricmc.net/tutorial:setup">Fabric Wiki]</a> 里面有写各种功能的接口和案例，再参考其他教程中的案例，就能基本知道开发的整体逻辑。</p>
+<h2 id="四、实际开发"><a href="#四、实际开发" class="headerlink" title="四、实际开发"></a>四、实际开发</h2><p>其实开发这些mod和其他的Java项目并没有什么区别，和之前开发的杀戮尖塔mod也有相似的地方。也就是先建立各种类，实现他们的方法，然后实例化，再把他们的逻辑连接起来，添加到游戏中。</p>
+<h3 id="1-Mod入口"><a href="#1-Mod入口" class="headerlink" title="1. Mod入口"></a>1. Mod入口</h3><p>首先我们需要一个mod入口实现了ModInitializer接口，用于进行mod的初始化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.liuliy.ruler;<br><br><span class="hljs-keyword">import</span> com.liuliy.ruler.client.ParticleManager;<br><span class="hljs-keyword">import</span> com.liuliy.ruler.client.Visualization;<br><span class="hljs-keyword">import</span> com.liuliy.ruler.registry.ModItems;<br><span class="hljs-keyword">import</span> net.fabricmc.api.ModInitializer;<br><span class="hljs-keyword">import</span> net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;<br><span class="hljs-keyword">import</span> net.minecraft.client.MinecraftClient;<br><span class="hljs-keyword">import</span> net.minecraft.world.World;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RulerMod</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ModInitializer</span> &#123;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">MOD_ID</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;ruler-mod&quot;</span>;<br>	<span class="hljs-meta">@Override</span><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onInitialize</span><span class="hljs-params">()</span> &#123;<br>		<span class="hljs-comment">// 注册所有测量工具</span><br>		ModItems.register();<br>		ParticleManager.init();<br>        <span class="hljs-comment">//注册mod物品栏</span><br>		ModItemGroup.registerModItemGroup();<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-注册所有道具"><a href="#2-注册所有道具" class="headerlink" title="2.注册所有道具"></a>2.注册所有道具</h3><p>然后就是用类定义想要开发的道具，然后在mod入口进行注册：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.liuliy.ruler.registry;<br><br><span class="hljs-keyword">import</span> com.liuliy.ruler.items.*;<br><span class="hljs-keyword">import</span> net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;<br><span class="hljs-keyword">import</span> net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;<br><span class="hljs-keyword">import</span> net.minecraft.item.Item;<br><span class="hljs-keyword">import</span> net.minecraft.item.ItemGroups;<br><span class="hljs-keyword">import</span> net.minecraft.registry.Registries;<br><span class="hljs-keyword">import</span> net.minecraft.registry.Registry;<br><span class="hljs-keyword">import</span> net.minecraft.util.Identifier;<br><br><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> com.liuliy.ruler.ModItemGroup.RULER_ITEM_GROUP_KEY;<br><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> com.liuliy.ruler.ModItemGroup.Ruler_ITEM_GROUP;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ModItems</span> &#123;<br>    <span class="hljs-comment">// 定义物品实例</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Item</span> <span class="hljs-variable">STRAIGHT_RULER</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StraightRulerItem</span>();<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Item</span> <span class="hljs-variable">LASER_RANGEFINDER</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LaserRangefinderItem</span>();<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Item</span> <span class="hljs-variable">LASER_RULER</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LaserRulerItem</span>();<br><br>    <span class="hljs-comment">// 注册所有物品</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">register</span><span class="hljs-params">()</span> &#123;<br>        Registry.register(Registries.ITEM, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Identifier</span>(<span class="hljs-string">&quot;ruler-mod&quot;</span>, <span class="hljs-string">&quot;straight_ruler&quot;</span>), STRAIGHT_RULER);<br>        Registry.register(Registries.ITEM, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Identifier</span>(<span class="hljs-string">&quot;ruler-mod&quot;</span>, <span class="hljs-string">&quot;laser_rangefinder&quot;</span>), LASER_RANGEFINDER);<br>        Registry.register(Registries.ITEM, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Identifier</span>(<span class="hljs-string">&quot;ruler-mod&quot;</span>, <span class="hljs-string">&quot;laser_ruler&quot;</span>), LASER_RULER);<br>        Registry.register(Registries.ITEM_GROUP, RULER_ITEM_GROUP_KEY, Ruler_ITEM_GROUP);<br><br>        ItemGroupEvents.modifyEntriesEvent(RULER_ITEM_GROUP_KEY).register(ModItems::addItemsToIG);<br>    &#125;<br>    <span class="hljs-comment">//添加到工具栏</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addItemsToIG</span><span class="hljs-params">(FabricItemGroupEntries fabricItemGroupEntries)</span> &#123;<br>        fabricItemGroupEntries.add(STRAIGHT_RULER);<br>        fabricItemGroupEntries.add(LASER_RANGEFINDER);<br>        fabricItemGroupEntries.add(LASER_RULER);<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>显然，我们在这里定义了直尺等多个物品。接下来就要具体实现他们的类</p>
+<h3 id="3-实现道具"><a href="#3-实现道具" class="headerlink" title="3.实现道具"></a>3.实现道具</h3><h4 id="3-1实现基类"><a href="#3-1实现基类" class="headerlink" title="3.1实现基类"></a>3.1实现基类</h4><p>我先写了一个类rulerTool，继承Item，作为所有基础测量工具的子类：</p>
+<p>这里限制了所有工具的堆叠数量，以及右键到方块的逻辑useOnBlock，还要存储测量结果的内部类，以及计算测量距离的算法。因为计算距离的算法是用坐标计算的，所以跨纬度使用时完全没用，因此记录使用的维度用来禁止两个点跨纬度计算</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.liuliy.ruler.items;<br><br><span class="hljs-keyword">import</span> net.fabricmc.api.EnvType;<br><span class="hljs-keyword">import</span> net.fabricmc.api.Environment;<br><span class="hljs-keyword">import</span> net.minecraft.entity.player.PlayerEntity;<br><span class="hljs-keyword">import</span> net.minecraft.item.Item;<br><span class="hljs-keyword">import</span> net.minecraft.item.ItemUsageContext;<br><span class="hljs-keyword">import</span> net.minecraft.text.Text;<br><span class="hljs-keyword">import</span> net.minecraft.util.ActionResult;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.BlockPos;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.Direction;<br><span class="hljs-keyword">import</span> net.minecraft.world.World;<br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RulerTool</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Item</span> &#123;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Map&lt;PlayerEntity, MeasurementData&gt; MEASUREMENTS = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">RulerTool</span><span class="hljs-params">(Settings settings)</span> &#123;<br>        <span class="hljs-built_in">super</span>(settings.maxCount(<span class="hljs-number">1</span>));  <span class="hljs-comment">// 限制物品堆叠数量为1</span><br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> ActionResult <span class="hljs-title function_">useOnBlock</span><span class="hljs-params">(ItemUsageContext context)</span> &#123;<br>       <span class="hljs-comment">//获取初始化数据</span><br>        <span class="hljs-type">PlayerEntity</span> <span class="hljs-variable">player</span> <span class="hljs-operator">=</span> context.getPlayer();<br>        <span class="hljs-type">BlockPos</span> <span class="hljs-variable">pos</span> <span class="hljs-operator">=</span> context.getBlockPos();<br>        <span class="hljs-type">Direction</span> <span class="hljs-variable">direction</span> <span class="hljs-operator">=</span> context.getSide();<br>        <span class="hljs-type">World</span> <span class="hljs-variable">world</span> <span class="hljs-operator">=</span> context.getWorld();<br><br>        <span class="hljs-keyword">if</span> (!context.getWorld().isClient) &#123;<br>            <span class="hljs-keyword">return</span> ActionResult.PASS;<br>        &#125;<br><br>        <span class="hljs-comment">// Shift+右键清除测量</span><br>        <span class="hljs-keyword">if</span> (player.isSneaking()) &#123;<br>            MEASUREMENTS.remove(player);<br>            player.sendMessage(Text.translatable(<span class="hljs-string">&quot;message.ruler-mod.measure_clear&quot;</span>), <span class="hljs-literal">false</span>);<br>            <span class="hljs-comment">// 停止粒子效果</span><br>            clearParticle();<br>            <span class="hljs-keyword">return</span> ActionResult.SUCCESS;<br>        &#125;<br>        <span class="hljs-comment">//进行测量</span><br>        handleMeasurement(player, world, pos,direction);<br>        <span class="hljs-keyword">return</span> ActionResult.SUCCESS;<br>    &#125;<br><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> ActionResult <span class="hljs-title function_">handleMeasurement</span><span class="hljs-params">(</span><br><span class="hljs-params">            PlayerEntity player, World world, BlockPos pos ,Direction dir</span><br><span class="hljs-params">    )</span>;<br>    <span class="hljs-keyword">protected</span>  <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">clearParticle</span><span class="hljs-params">()</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MeasurementData</span> &#123;<br>        <span class="hljs-keyword">public</span> BlockPos[] points = <span class="hljs-keyword">new</span> <span class="hljs-title class_">BlockPos</span>[<span class="hljs-number">2</span>];  <span class="hljs-comment">// 记录两个点的数组</span><br>        <span class="hljs-keyword">public</span> World[] worlds = <span class="hljs-keyword">new</span> <span class="hljs-title class_">World</span>[<span class="hljs-number">2</span>];  <span class="hljs-comment">// 记录两个维度的数组</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-variable">step</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;  <span class="hljs-comment">// 当前步骤</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-title function_">MeasurementData</span><span class="hljs-params">()</span> &#123;<br>            <span class="hljs-comment">// 初始化为空点</span><br>            points[<span class="hljs-number">0</span>] = <span class="hljs-literal">null</span>;<br>            points[<span class="hljs-number">1</span>] = <span class="hljs-literal">null</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> <span class="hljs-type">double</span> <span class="hljs-title function_">calculateDistance</span><span class="hljs-params">(BlockPos a, BlockPos b)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">dx</span> <span class="hljs-operator">=</span> b.getX() - a.getX();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">dy</span> <span class="hljs-operator">=</span> b.getY() - a.getY();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">dz</span> <span class="hljs-operator">=</span> b.getZ() - a.getZ();<br><br>        <span class="hljs-keyword">return</span> Math.max(Math.abs(dx),Math.max(Math.abs(dy),Math.abs(dz)));<br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>还增加了一个RulerToolPlus，区别主要是一个需要点击方块useOnBlock，一个可以凭空远距离右键use</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.liuliy.ruler.items;<br><br><span class="hljs-keyword">import</span> net.fabricmc.api.EnvType;<br><span class="hljs-keyword">import</span> net.fabricmc.api.Environment;<br><span class="hljs-keyword">import</span> net.minecraft.entity.player.PlayerEntity;<br><span class="hljs-keyword">import</span> net.minecraft.item.Item;<br><span class="hljs-keyword">import</span> net.minecraft.item.ItemStack;<br><span class="hljs-keyword">import</span> net.minecraft.text.Text;<br><span class="hljs-keyword">import</span> net.minecraft.util.Hand;<br><span class="hljs-keyword">import</span> net.minecraft.util.TypedActionResult;<br><span class="hljs-keyword">import</span> net.minecraft.util.hit.BlockHitResult;<br><span class="hljs-keyword">import</span> net.minecraft.util.hit.HitResult;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.BlockPos;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.Direction;<br><span class="hljs-keyword">import</span> net.minecraft.world.World;<br><span class="hljs-keyword">import</span> java.util.HashMap;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RulerToolPlus</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Item</span> &#123;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Map&lt;PlayerEntity, MeasurementData&gt; MEASUREMENTS = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">RulerToolPlus</span><span class="hljs-params">(Settings settings)</span> &#123;<br>        <span class="hljs-built_in">super</span>(settings.maxCount(<span class="hljs-number">1</span>));  <span class="hljs-comment">// 限制物品堆叠数量为1</span><br>    &#125;<br><br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> TypedActionResult&lt;ItemStack&gt; <span class="hljs-title function_">use</span><span class="hljs-params">(World world, PlayerEntity player, Hand hand)</span> &#123;<br><br>        <span class="hljs-keyword">if</span> (!world.isClient) &#123;<br>            <span class="hljs-keyword">return</span> TypedActionResult.pass(player.getStackInHand(hand));<br>        &#125;<br><br>        <span class="hljs-type">BlockHitResult</span> <span class="hljs-variable">hitResult</span> <span class="hljs-operator">=</span> (BlockHitResult) player.raycast(<span class="hljs-number">128</span>, <span class="hljs-number">0</span>, <span class="hljs-literal">false</span>);<br>        <span class="hljs-keyword">if</span> (hitResult.getType() != HitResult.Type.BLOCK) &#123;<br>            player.sendMessage(Text.translatable(<span class="hljs-string">&quot;message.ruler-mod.aim_at_block&quot;</span>), <span class="hljs-literal">false</span>);<br>            <span class="hljs-keyword">return</span> TypedActionResult.fail(player.getStackInHand(hand));<br>        &#125;<br>        <span class="hljs-type">BlockPos</span> <span class="hljs-variable">pos</span> <span class="hljs-operator">=</span> hitResult.getBlockPos();<br>        <span class="hljs-type">Direction</span> <span class="hljs-variable">direction</span> <span class="hljs-operator">=</span>  hitResult.getSide();<br><br>        <span class="hljs-comment">// Shift+右键清除测量</span><br>        <span class="hljs-keyword">if</span> (player.isSneaking()) &#123;<br>            MEASUREMENTS.remove(player);<br>            <span class="hljs-comment">// 停止粒子效果</span><br>            clearParticle();<br>            <span class="hljs-keyword">return</span> TypedActionResult.success(player.getStackInHand(hand));<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> handleMeasurement(player, world, hand, pos,direction);<br>    &#125;<br><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> TypedActionResult&lt;ItemStack&gt; <span class="hljs-title function_">handleMeasurement</span><span class="hljs-params">(</span><br><span class="hljs-params">            PlayerEntity player, World world, Hand hand, BlockPos pos ,Direction dir</span><br><span class="hljs-params">    )</span>;<br><br>    <span class="hljs-keyword">protected</span>  <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">clearParticle</span><span class="hljs-params">()</span>;<br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MeasurementData</span> &#123;<br>        <span class="hljs-keyword">public</span> BlockPos[] points = <span class="hljs-keyword">new</span> <span class="hljs-title class_">BlockPos</span>[<span class="hljs-number">2</span>];  <span class="hljs-comment">// 记录两个点的数组</span><br>        <span class="hljs-keyword">public</span> World[] worlds = <span class="hljs-keyword">new</span> <span class="hljs-title class_">World</span>[<span class="hljs-number">2</span>];  <span class="hljs-comment">// 记录两个维度的数组</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-variable">step</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;  <span class="hljs-comment">// 当前步骤</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-title function_">MeasurementData</span><span class="hljs-params">()</span> &#123;<br>            <span class="hljs-comment">// 初始化为空点</span><br>            points[<span class="hljs-number">0</span>] = <span class="hljs-literal">null</span>;<br>            points[<span class="hljs-number">1</span>] = <span class="hljs-literal">null</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">static</span> <span class="hljs-type">double</span> <span class="hljs-title function_">calculateDistance</span><span class="hljs-params">(BlockPos a, BlockPos b)</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">dx</span> <span class="hljs-operator">=</span> b.getX() - a.getX();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">dy</span> <span class="hljs-operator">=</span> b.getY() - a.getY();<br>        <span class="hljs-type">int</span> <span class="hljs-variable">dz</span> <span class="hljs-operator">=</span> b.getZ() - a.getZ();<br><br>        <span class="hljs-keyword">return</span> Math.max(Math.abs(dx),Math.max(Math.abs(dy),Math.abs(dz)));<br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>继承了基类后，子类只需要实现测量方法和清除粒子效果方法的具体实现:</p>
+<h4 id="3-2实现直尺"><a href="#3-2实现直尺" class="headerlink" title="3.2实现直尺"></a>3.2实现直尺</h4><p>对于直尺，实现的逻辑是：</p>
+<ol>
+<li>点击第一下，记录a点坐标，显示粒子效果</li>
+<li>点击第二下，记录b点坐标，显示粒子效果并且计算出距离，用粒子效果将ab连成线</li>
+<li>之后的点击就重复显示测量的距离，直到取消测量</li>
+<li>取消测量后，粒子效果随之消失</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.liuliy.ruler.items;<br><br><span class="hljs-keyword">import</span> com.liuliy.ruler.client.ParticleManager;<br><span class="hljs-keyword">import</span> com.liuliy.ruler.client.Visualization;<br><span class="hljs-keyword">import</span> net.fabricmc.api.EnvType;<br><span class="hljs-keyword">import</span> net.fabricmc.api.Environment;<br><span class="hljs-keyword">import</span> net.minecraft.entity.player.PlayerEntity;<br><span class="hljs-keyword">import</span> net.minecraft.item.Item;<br><span class="hljs-keyword">import</span> net.minecraft.text.Text;<br><span class="hljs-keyword">import</span> net.minecraft.util.ActionResult;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.BlockPos;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.Direction;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.Vec3d;<br><span class="hljs-keyword">import</span> net.minecraft.world.World;<br><br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> com.liuliy.ruler.client.Visualization.spawnParticlesBetween;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StraightRulerItem</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">RulerTool</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">StraightRulerItem</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">super</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Item</span>.Settings());<br>    &#125;<br>    PlayerEntity player;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;Vec3d&gt; activePos = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br>    <span class="hljs-meta">@Environment(EnvType.CLIENT)</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> ActionResult <span class="hljs-title function_">handleMeasurement</span><span class="hljs-params">(PlayerEntity player, World world, BlockPos pos, Direction dir)</span> &#123;<br>        <span class="hljs-type">MeasurementData</span> <span class="hljs-variable">data</span> <span class="hljs-operator">=</span> MEASUREMENTS.computeIfAbsent(player, p -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">MeasurementData</span>());<br>        <span class="hljs-built_in">this</span>.player=player;<br>        <span class="hljs-keyword">if</span> (data.step == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-comment">// 第一次点击，记录第一个点</span><br>            data.points[<span class="hljs-number">0</span>] = pos;<br>            <span class="hljs-comment">// 标记为已记录第一个点</span><br>            data.step = <span class="hljs-number">1</span>;<br>            <span class="hljs-comment">//记录世界</span><br>            data.worlds[<span class="hljs-number">0</span>]=world;<br>            player.sendMessage(Text.translatable(<span class="hljs-string">&quot;message.ruler-mod.measure_start&quot;</span>), <span class="hljs-literal">false</span>);<br>            <span class="hljs-comment">//显示第一个点的粒子效果</span><br>            ParticleManager.addParticle(data.points[<span class="hljs-number">0</span>],dir);<br>            <span class="hljs-comment">//记录该坐标已生成粒子</span><br>            activePos.add(Visualization.getPosition(pos, dir));<br><br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data.step == <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-comment">// 记录第二个点并计算距离</span><br>            data.points[<span class="hljs-number">1</span>] = pos;<br>            data.worlds[<span class="hljs-number">1</span>]=world;<br>            <span class="hljs-keyword">if</span> (data.worlds[<span class="hljs-number">0</span>]!=world)&#123;<br>                player.sendMessage(Text.translatable(<span class="hljs-string">&quot;message.ruler-mod.cross_dimension_error&quot;</span>), <span class="hljs-literal">false</span>);<br>                <span class="hljs-keyword">return</span> ActionResult.FAIL;<br>            &#125;<br>            <span class="hljs-type">double</span> <span class="hljs-variable">distance</span> <span class="hljs-operator">=</span> calculateDistance(data.points[<span class="hljs-number">0</span>], data.points[<span class="hljs-number">1</span>]);<br>            player.sendMessage(Text.translatable(<span class="hljs-string">&quot;message.ruler-mod.measure_distance&quot;</span> , (<span class="hljs-type">int</span>)Math.floor(distance+<span class="hljs-number">1</span>) ), <span class="hljs-literal">false</span>);<br>            data.step = <span class="hljs-number">2</span>;  <span class="hljs-comment">// 测量完成</span><br>            <span class="hljs-comment">// 在第二个点上显示粒子效果</span><br>            ParticleManager.addParticle(data.points[<span class="hljs-number">1</span>],dir);<br>            <span class="hljs-comment">//记录该坐标已生成粒子</span><br>            activePos.add(Visualization.getPosition(pos, dir));<br>            <span class="hljs-comment">//并且在两点之间生成一条粒子线</span><br>            spawnParticlesBetween(world, data.points[<span class="hljs-number">0</span>], data.points[<span class="hljs-number">1</span>],dir,<span class="hljs-string">&quot;ruler&quot;</span>);<br><br>        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data.step == <span class="hljs-number">2</span>) &#123;<br>            <span class="hljs-comment">// 第三次点击</span><br>            <span class="hljs-type">double</span> <span class="hljs-variable">distance</span> <span class="hljs-operator">=</span> calculateDistance(data.points[<span class="hljs-number">0</span>], data.points[<span class="hljs-number">1</span>]);<br>            player.sendMessage(Text.translatable(<span class="hljs-string">&quot;message.ruler-mod.measure_distance&quot;</span> , (<span class="hljs-type">int</span>)Math.floor(distance+<span class="hljs-number">1</span>) ), <span class="hljs-literal">false</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ActionResult.SUCCESS;<br><br><br>    &#125;<br>    <span class="hljs-meta">@Environment(EnvType.CLIENT)</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">clearParticle</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">for</span> (Vec3d pos : StraightRulerItem.activePos)&#123;<br>            ParticleManager.removeParticle(pos);<br>        &#125;<br><span class="hljs-comment">//        ParticleManager.removeParticle();</span><br>        StraightRulerItem.activePos.clear();<br><br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="3-3实现激光测距仪"><a href="#3-3实现激光测距仪" class="headerlink" title="3.3实现激光测距仪"></a>3.3实现激光测距仪</h4><p>相当于一次性的直尺，测量目标到玩家的距离，粒子效果不保留</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.liuliy.ruler.items;<br><br><span class="hljs-keyword">import</span> com.liuliy.ruler.client.ParticleManager;<br><span class="hljs-keyword">import</span> net.fabricmc.api.EnvType;<br><span class="hljs-keyword">import</span> net.fabricmc.api.Environment;<br><span class="hljs-keyword">import</span> net.minecraft.entity.player.PlayerEntity;<br><span class="hljs-keyword">import</span> net.minecraft.item.Item;<br><span class="hljs-keyword">import</span> net.minecraft.item.ItemStack;<br><span class="hljs-keyword">import</span> net.minecraft.text.Text;<br><span class="hljs-keyword">import</span> net.minecraft.util.ActionResult;<br><span class="hljs-keyword">import</span> net.minecraft.util.Hand;<br><span class="hljs-keyword">import</span> net.minecraft.util.TypedActionResult;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.BlockPos;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.Direction;<br><span class="hljs-keyword">import</span> net.minecraft.world.World;<br><br><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> com.liuliy.ruler.client.Visualization.spawnParticlesBetweenNow;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LaserRangefinderItem</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">RulerToolPlus</span>  &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">LaserRangefinderItem</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">super</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Item</span>.Settings());<br>    &#125;<br>    <span class="hljs-meta">@Environment(EnvType.CLIENT)</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> TypedActionResult&lt;ItemStack&gt; <span class="hljs-title function_">handleMeasurement</span><span class="hljs-params">(PlayerEntity player, World world, Hand hand, BlockPos pos, Direction dir)</span> &#123;<br>        <span class="hljs-comment">// 记录第二个点并计算距离</span><br>        <span class="hljs-type">double</span> <span class="hljs-variable">distance</span> <span class="hljs-operator">=</span> calculateDistance(player.getBlockPos(), pos);<br>        player.sendMessage(Text.translatable(<span class="hljs-string">&quot;message.ruler-mod.measure_distance&quot;</span> ,(<span class="hljs-type">int</span>)Math.floor(distance+<span class="hljs-number">1</span>)), <span class="hljs-literal">false</span>);<br>        <span class="hljs-comment">//并且在两点之间生成一条粒子线</span><br>        spawnParticlesBetweenNow(world,player.getBlockPos(), pos,dir);<br>        <span class="hljs-keyword">return</span> TypedActionResult.success(player.getStackInHand(hand));<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">clearParticle</span><span class="hljs-params">()</span> &#123;<br><br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="3-4实现激光直尺"><a href="#3-4实现激光直尺" class="headerlink" title="3.4实现激光直尺"></a>3.4实现激光直尺</h4><p>在普通直尺的基础上和激光测距仪合成，不需要点击方块，可以在远处测量</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.liuliy.ruler.items;<br><br><span class="hljs-keyword">import</span> com.liuliy.ruler.client.ParticleManager;<br><span class="hljs-keyword">import</span> com.liuliy.ruler.client.Visualization;<br><span class="hljs-keyword">import</span> net.fabricmc.api.EnvType;<br><span class="hljs-keyword">import</span> net.fabricmc.api.Environment;<br><span class="hljs-keyword">import</span> net.minecraft.entity.player.PlayerEntity;<br><span class="hljs-keyword">import</span> net.minecraft.item.Item;<br><span class="hljs-keyword">import</span> net.minecraft.item.ItemStack;<br><span class="hljs-keyword">import</span> net.minecraft.text.Text;<br><span class="hljs-keyword">import</span> net.minecraft.util.ActionResult;<br><span class="hljs-keyword">import</span> net.minecraft.util.Hand;<br><span class="hljs-keyword">import</span> net.minecraft.util.TypedActionResult;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.BlockPos;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.Direction;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.Vec3d;<br><span class="hljs-keyword">import</span> net.minecraft.world.World;<br><br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> com.liuliy.ruler.client.Visualization.spawnParticlesBetween;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LaserRulerItem</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">RulerToolPlus</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> List&lt;Vec3d&gt; activePos = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">LaserRulerItem</span><span class="hljs-params">( )</span> &#123;<br>        <span class="hljs-built_in">super</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Item</span>.Settings());<br>    &#125;<br>    PlayerEntity player;<br>    <span class="hljs-meta">@Environment(EnvType.CLIENT)</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> TypedActionResult&lt;ItemStack&gt; <span class="hljs-title function_">handleMeasurement</span><span class="hljs-params">(  PlayerEntity player, World world, Hand hand, BlockPos pos, Direction dir)</span> &#123;<br>        <span class="hljs-type">MeasurementData</span> <span class="hljs-variable">data</span> <span class="hljs-operator">=</span> MEASUREMENTS.computeIfAbsent(player, p -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">MeasurementData</span>());<br>        <span class="hljs-built_in">this</span>.player=player;<br>        <span class="hljs-keyword">if</span> (data.step == <span class="hljs-number">0</span>) &#123;<br>            <span class="hljs-comment">// 第一次点击，记录第一个点</span><br>            data.points[<span class="hljs-number">0</span>] = pos;<br>            data.step = <span class="hljs-number">1</span>;  <span class="hljs-comment">// 标记为已记录第一个点</span><br>            <span class="hljs-comment">//记录世界</span><br>            data.worlds[<span class="hljs-number">0</span>]=world;<br>            player.sendMessage(Text.translatable(<span class="hljs-string">&quot;message.ruler-mod.measure_start&quot;</span>), <span class="hljs-literal">false</span>);<br>            <span class="hljs-comment">//显示第一个点的粒子效果</span><br>            ParticleManager.addParticle(data.points[<span class="hljs-number">0</span>],dir);<br>            <span class="hljs-comment">//记录该坐标已生成粒子</span><br>            activePos.add(Visualization.getPosition(pos, dir));<br><br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data.step == <span class="hljs-number">1</span>) &#123;<br><br>            <span class="hljs-comment">// 记录第二个点并计算距离</span><br>            data.points[<span class="hljs-number">1</span>] = pos;<br>            <span class="hljs-comment">//记录世界</span><br>            data.worlds[<span class="hljs-number">1</span>]=world;<br>            <span class="hljs-keyword">if</span> (data.worlds[<span class="hljs-number">0</span>]!=world)&#123;<br>                player.sendMessage(Text.translatable(<span class="hljs-string">&quot;message.ruler-mod.cross_dimension_error&quot;</span>), <span class="hljs-literal">false</span>);<br>                <span class="hljs-keyword">return</span> TypedActionResult.fail(player.getStackInHand(hand));<br>            &#125;<br>            <span class="hljs-type">double</span> <span class="hljs-variable">distance</span> <span class="hljs-operator">=</span> calculateDistance(data.points[<span class="hljs-number">0</span>], data.points[<span class="hljs-number">1</span>]);<br>            player.sendMessage(Text.translatable(<span class="hljs-string">&quot;message.ruler-mod.measure_distance&quot;</span> ,(<span class="hljs-type">int</span>)Math.floor(distance+<span class="hljs-number">1</span>)), <span class="hljs-literal">false</span>);<br>            data.step = <span class="hljs-number">2</span>;  <span class="hljs-comment">// 测量完成</span><br>            <span class="hljs-comment">// 在第二个点上显示粒子效果</span><br>            ParticleManager.addParticle(data.points[<span class="hljs-number">1</span>],dir);<br>            <span class="hljs-comment">//记录该坐标已生成粒子</span><br>            activePos.add(Visualization.getPosition(pos, dir));<br>            <span class="hljs-comment">//并且在两点之间生成一条粒子线</span><br>            spawnParticlesBetween(world, data.points[<span class="hljs-number">0</span>], data.points[<span class="hljs-number">1</span>],dir,<span class="hljs-string">&quot;laserRuler&quot;</span>);<br><br>        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data.step == <span class="hljs-number">2</span>) &#123;<br>            <span class="hljs-comment">// 第三次点击</span><br>            <span class="hljs-type">double</span> <span class="hljs-variable">distance</span> <span class="hljs-operator">=</span> calculateDistance(data.points[<span class="hljs-number">0</span>], data.points[<span class="hljs-number">1</span>]);<br>            player.sendMessage(Text.translatable(<span class="hljs-string">&quot;message.ruler-mod.measure_distance&quot;</span> ,(<span class="hljs-type">int</span>)Math.floor(distance+<span class="hljs-number">1</span>)), <span class="hljs-literal">false</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> TypedActionResult.success(player.getStackInHand(hand));<br><br><br>    &#125;<br>    <span class="hljs-meta">@Environment(EnvType.CLIENT)</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">clearParticle</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.player == <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        player.sendMessage(Text.translatable(<span class="hljs-string">&quot;message.ruler-mod.measure_clear&quot;</span>), <span class="hljs-literal">false</span>);<br>        <span class="hljs-keyword">for</span> (Vec3d pos : LaserRulerItem.activePos)&#123;<br>            ParticleManager.removeParticle(pos);<br>        &#125;<br><span class="hljs-comment">//        ParticleManager.removeParticle();</span><br>        LaserRulerItem.activePos.clear();<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-粒子效果"><a href="#4-粒子效果" class="headerlink" title="4.粒子效果"></a>4.粒子效果</h3><p>前面实现了测量后，我们需要呈现出粒子效果</p>
+<p>我在这里使用了两个类来管理</p>
+<h4 id="4-1-Visualization"><a href="#4-1-Visualization" class="headerlink" title="4.1 Visualization"></a>4.1 Visualization</h4><p>用于实现呈现粒子效果的方法，计算粒子效果的坐标.</p>
+<p>需要注意的一点是，我通过在尺子自身的类中记录创建粒子效果的位置，用于取消测量时消除对应的粒子效果。但是生成一条直线时，我的粒子效果的位置是通过一个公共的方法spawnParticlesBetween中计算得知的，因此需要传入一个字符串，来表明生成的粒子效果属于谁，再记录。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.liuliy.ruler.client;<br><br><br><span class="hljs-keyword">import</span> com.liuliy.ruler.items.LaserRulerItem;<br><span class="hljs-keyword">import</span> com.liuliy.ruler.items.StraightRulerItem;<br><span class="hljs-keyword">import</span> net.minecraft.particle.ParticleTypes;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.BlockPos;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.Direction;<br><br><span class="hljs-keyword">import</span> net.minecraft.util.math.Vec3d;<br><span class="hljs-keyword">import</span> net.minecraft.world.World;<br><span class="hljs-keyword">import</span> net.fabricmc.api.EnvType;<br><span class="hljs-keyword">import</span> net.fabricmc.api.Environment;<br><br><br><br><span class="hljs-meta">@Environment(EnvType.CLIENT)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Visualization</span> &#123;<br>    <span class="hljs-meta">@Environment(EnvType.CLIENT)</span><br>    <span class="hljs-comment">// 在指定位置显示粒子效果</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">spawnParticleAt</span><span class="hljs-params">(World world, Vec3d position)</span> &#123;<br>        <span class="hljs-keyword">if</span> (world.isClient) &#123;<br>            <span class="hljs-comment">// 生成粒子效果</span><br>            world.addParticle(ParticleTypes.END_ROD,<br>                    position.x,  position.y,  position.z,<br>                    <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>        &#125;<br><br>    &#125;<br><br>    <span class="hljs-comment">// 在两点之间生成持续的粒子效果的直线</span><br>    <span class="hljs-meta">@Environment(EnvType.CLIENT)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">spawnParticlesBetween</span><span class="hljs-params">(World world, BlockPos point1, BlockPos point2,Direction dir,String item)</span> &#123;<br>        <span class="hljs-keyword">if</span> (world.isClient) &#123;<br>            <span class="hljs-comment">// 计算两点之间的差值</span><br>            <span class="hljs-type">double</span> <span class="hljs-variable">dx</span> <span class="hljs-operator">=</span> point2.getX() - point1.getX();<br>            <span class="hljs-type">double</span> <span class="hljs-variable">dy</span> <span class="hljs-operator">=</span> point2.getY() - point1.getY();<br>            <span class="hljs-type">double</span> <span class="hljs-variable">dz</span> <span class="hljs-operator">=</span> point2.getZ() - point1.getZ();<br>            <span class="hljs-type">int</span> <span class="hljs-variable">particleCount</span> <span class="hljs-operator">=</span> (<span class="hljs-type">int</span>) Math.max(Math.abs(dx), Math.max(Math.abs(dy), Math.abs(dz)));<br><br>            <span class="hljs-type">Vec3d</span> <span class="hljs-variable">offset</span> <span class="hljs-operator">=</span> getOffset(dir);<br><br>            <span class="hljs-comment">// 在两点之间生成粒子</span><br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt;= particleCount; i++) &#123;<br>                <span class="hljs-type">double</span> <span class="hljs-variable">fraction</span> <span class="hljs-operator">=</span> i / (<span class="hljs-type">double</span>) particleCount;<br>                <span class="hljs-type">double</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> point1.getX() + dx * fraction;<br>                <span class="hljs-type">double</span> <span class="hljs-variable">y</span> <span class="hljs-operator">=</span> point1.getY() + dy * fraction;<br>                <span class="hljs-type">double</span> <span class="hljs-variable">z</span> <span class="hljs-operator">=</span> point1.getZ() + dz * fraction;<br>                <span class="hljs-type">Vec3d</span> <span class="hljs-variable">position</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vec3d</span>(x,y,z).add(offset);<br>                ParticleManager.addParticle(position,dir);<br>               <span class="hljs-keyword">switch</span> (item)&#123;<br>                   <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;ruler&quot;</span>:<br>                       StraightRulerItem.activePos.add(position);<br>                       <span class="hljs-keyword">break</span>;<br>                   <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;laserRuler&quot;</span>:<br>                       LaserRulerItem.activePos.add(position);<br>                       <span class="hljs-keyword">break</span>;<br>                   <span class="hljs-keyword">default</span>:<br>                       <span class="hljs-keyword">break</span>;<br>               &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">// 在两点之间生成粒子效果的直线,不持续</span><br>    <span class="hljs-meta">@Environment(EnvType.CLIENT)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">spawnParticlesBetweenNow</span><span class="hljs-params">(World world, BlockPos point1, BlockPos point2,Direction dir)</span> &#123;<br>        <span class="hljs-keyword">if</span> (world.isClient) &#123;<br>            <span class="hljs-comment">// 计算两点之间的差值</span><br>            <span class="hljs-type">double</span> <span class="hljs-variable">dx</span> <span class="hljs-operator">=</span> point2.getX() - point1.getX();<br>            <span class="hljs-type">double</span> <span class="hljs-variable">dy</span> <span class="hljs-operator">=</span> point2.getY() - point1.getY();<br>            <span class="hljs-type">double</span> <span class="hljs-variable">dz</span> <span class="hljs-operator">=</span> point2.getZ() - point1.getZ();<br>            <span class="hljs-type">int</span> <span class="hljs-variable">particleCount</span> <span class="hljs-operator">=</span> (<span class="hljs-type">int</span>) Math.max(Math.abs(dx), Math.max(Math.abs(dy), Math.abs(dz)));<br><br>            <span class="hljs-type">Vec3d</span> <span class="hljs-variable">offset</span> <span class="hljs-operator">=</span> getOffset(dir);<br><br>            <span class="hljs-comment">// 在两点之间生成粒子</span><br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt;= particleCount; i++) &#123;<br>                <span class="hljs-type">double</span> <span class="hljs-variable">fraction</span> <span class="hljs-operator">=</span> i / (<span class="hljs-type">double</span>) particleCount;<br>                <span class="hljs-type">double</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> point1.getX() + dx * fraction;<br>                <span class="hljs-type">double</span> <span class="hljs-variable">y</span> <span class="hljs-operator">=</span> point1.getY() + dy * fraction;<br>                <span class="hljs-type">double</span> <span class="hljs-variable">z</span> <span class="hljs-operator">=</span> point1.getZ() + dz * fraction;<br>                spawnParticleAt(world,<span class="hljs-keyword">new</span> <span class="hljs-title class_">Vec3d</span>(x,y,z).add(offset));<br>            &#125;<br>        &#125;<br>    &#125;<br>   <span class="hljs-comment">//获取生成粒子的坐标</span><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Vec3d <span class="hljs-title function_">getPosition</span><span class="hljs-params">(BlockPos pos,Direction dir)</span>&#123;<br>            <span class="hljs-type">Vec3d</span> <span class="hljs-variable">position</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vec3d</span>(pos.getX(), pos.getY() , pos.getZ()).add(getOffset(dir));<br>        <span class="hljs-keyword">return</span> position ;<br>    &#125;<br><br>    <span class="hljs-comment">//获取偏移量</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Vec3d <span class="hljs-title function_">getOffset</span><span class="hljs-params">(Direction dir)</span>&#123;<br>        <span class="hljs-comment">// 计算粒子效果的位置：离方块面向玩家的面0.5格的距离</span><br>        <span class="hljs-comment">// 基础偏移量：方块中心点 (0.5, 0.5, 0.5)</span><br>        <span class="hljs-type">Vec3d</span> <span class="hljs-variable">baseOffset</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vec3d</span>(<span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>, <span class="hljs-number">0.5</span>);<br>        <span class="hljs-type">double</span> Value=<span class="hljs-number">0.7</span>;<br>        <span class="hljs-comment">// 根据不同的面添加微调偏移</span><br>        <span class="hljs-type">Vec3d</span> <span class="hljs-variable">faceOffset</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">switch</span> (dir) &#123;<br>            <span class="hljs-comment">// ----------- 侧面 -----------</span><br>            <span class="hljs-keyword">case</span> NORTH -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vec3d</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, -Value);  <span class="hljs-comment">// 北面：Z轴-0.5方向，略微突出</span><br>            <span class="hljs-keyword">case</span> SOUTH -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vec3d</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, Value);   <span class="hljs-comment">// 南面：Z轴+0.5方向</span><br>            <span class="hljs-keyword">case</span> WEST  -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vec3d</span>(-Value, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);  <span class="hljs-comment">// 西面：X轴-0.5方向</span><br>            <span class="hljs-keyword">case</span> EAST  -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vec3d</span>(Value, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);   <span class="hljs-comment">// 东面：X轴+0.5方向</span><br><br>            <span class="hljs-comment">// ----------- 顶部/底部 -----------</span><br>            <span class="hljs-keyword">case</span> UP    -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vec3d</span>(<span class="hljs-number">0</span>, Value, <span class="hljs-number">0</span>);   <span class="hljs-comment">// 顶面：Y轴+0.5方向</span><br>            <span class="hljs-keyword">case</span> DOWN  -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vec3d</span>(<span class="hljs-number">0</span>, -Value, <span class="hljs-number">0</span>);  <span class="hljs-comment">// 底面：Y轴-0.5方向</span><br><br>            <span class="hljs-keyword">default</span> -&gt; Vec3d.ZERO; <span class="hljs-comment">// 理论上不会触发</span><br>        &#125;;<br>        <span class="hljs-keyword">return</span> baseOffset.add(faceOffset);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="4-2-ParticleManager"><a href="#4-2-ParticleManager" class="headerlink" title="4.2 ParticleManager"></a>4.2 ParticleManager</h4><p>生成粒子效果后，我们将获得的坐标传入 ParticleManager中进行管理，在这里用activeParticles存储了所有正在显示的粒子效果，并且注册了一个事件来进行每tick更新，保持粒子效果的持续显示</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.liuliy.ruler.client;<br><br><br><br><span class="hljs-keyword">import</span> net.fabricmc.api.EnvType;<br><span class="hljs-keyword">import</span> net.fabricmc.api.Environment;<br><span class="hljs-keyword">import</span> net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.BlockPos;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.Direction;<br><span class="hljs-keyword">import</span> net.minecraft.util.math.Vec3d;<br><br><br><span class="hljs-keyword">import</span> java.util.ArrayList;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><br><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> com.liuliy.ruler.client.Visualization.*;<br><br><br><span class="hljs-comment">// 在客户端工具类或独立类中</span><br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ParticleManager</span> &#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> List&lt;ActiveParticle&gt; activeParticles = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;&gt;();<br><br><br>    <span class="hljs-comment">// 记录活动测量</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ActiveParticle</span> &#123;<br><br>        <span class="hljs-keyword">public</span> BlockPos blockPos;<br>        <span class="hljs-comment">//当前粒子效果的坐标</span><br>        <span class="hljs-keyword">public</span> Vec3d position;<br>        <span class="hljs-comment">//生成粒子效果的方块的朝向</span><br>        <span class="hljs-keyword">public</span> Direction direction;<br>        <span class="hljs-comment">//开始时间,用于后续可能实现的渐变效果</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-type">long</span> startTime;<br>        <span class="hljs-comment">//标志当前粒子效果是否持续存在</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> isParticleActive;<br><br><br>        <span class="hljs-keyword">public</span> <span class="hljs-title function_">ActiveParticle</span><span class="hljs-params">(Vec3d position, Direction dir)</span> &#123;<br>            <span class="hljs-built_in">this</span>.position=position;<br>            <span class="hljs-built_in">this</span>.direction = dir;<br>            <span class="hljs-built_in">this</span>.startTime = System.currentTimeMillis();<br>            isParticleActive=<span class="hljs-literal">true</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// 注册客户端Tick事件</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">init</span><span class="hljs-params">()</span> &#123;<br>        ClientTickEvents.END_CLIENT_TICK.register(client -&gt; &#123;<br>            <span class="hljs-keyword">if</span> (client.world != <span class="hljs-literal">null</span> ) &#123;<br>                <span class="hljs-comment">// 每Tick更新所有活动测量</span><br>                activeParticles.forEach(ActiveParticle -&gt;<br>                        spawnParticleAt(client.world, ActiveParticle.position)<br>                );<br>            &#125;<br>        &#125;);<br>    &#125;<br><br>    <span class="hljs-comment">// 添加持续测量</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addParticle</span><span class="hljs-params">(BlockPos pos, Direction dir)</span> &#123;<br>        activeParticles.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ActiveParticle</span>(getPosition(pos,dir), dir));<br><br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addParticle</span><span class="hljs-params">(Vec3d pos, Direction dir)</span> &#123;<br>        activeParticles.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ActiveParticle</span>(pos, dir));<br><br>    &#125;<br>    <span class="hljs-comment">// 移除测量</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">removeParticle</span><span class="hljs-params">(Vec3d pos)</span> &#123;<br>        activeParticles.removeIf(m -&gt; m.position.equals(pos));<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">removeParticle</span><span class="hljs-params">()</span> &#123;<br>        activeParticles.clear();<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-图形材质"><a href="#5-图形材质" class="headerlink" title="5.图形材质"></a>5.图形材质</h3><p>在resources&#x2F;assets&#x2F;ruler-mod&#x2F;models&#x2F;item&#x2F;straight_ruler.json中存放模型json文件表示渲染方式，这里只举个直尺的例子:</p>
+<p>注意种类的ruler-mod就是前文配置文件中的modid</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;parent&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;minecraft:item/generated&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;textures&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;layer0&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ruler-mod:item/straight_ruler&quot;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>同理在对应的resources&#x2F;assets&#x2F;ruler-mod&#x2F;textures&#x2F;item中存放贴图文件</p>
+<p>前文的注册中有引用贴图资源:<br>Registry.register(Registries.ITEM, new Identifier(“ruler-mod”, “straight_ruler”), STRAIGHT_RULER);</p>
+<p>这里的model文件和贴图文件，以及代码中声明的名词要相同即都是“straight_ruler”</p>
+<h3 id="6-自定义物品栏"><a href="#6-自定义物品栏" class="headerlink" title="6.自定义物品栏"></a>6.自定义物品栏</h3><p>我们以及建立了物品，但是目前只能通过指令获得，接下来就可以做一个自定义物品栏，呈现所有的内容。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.liuliy.ruler;<br><br><span class="hljs-keyword">import</span> com.liuliy.ruler.registry.ModItems;<br><span class="hljs-keyword">import</span> net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;<br><span class="hljs-keyword">import</span> net.minecraft.item.ItemGroup;<br><span class="hljs-keyword">import</span> net.minecraft.item.ItemStack;<br><span class="hljs-keyword">import</span> net.minecraft.registry.Registries;<br><span class="hljs-keyword">import</span> net.minecraft.registry.Registry;<br><span class="hljs-keyword">import</span> net.minecraft.registry.RegistryKey;<br><span class="hljs-keyword">import</span> net.minecraft.text.Text;<br><span class="hljs-keyword">import</span> net.minecraft.util.Identifier;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ModItemGroup</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">registerModItemGroup</span><span class="hljs-params">()</span>&#123;<br><br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> RegistryKey&lt;ItemGroup&gt; RULER_ITEM_GROUP_KEY<br>            = RegistryKey.of(Registries.ITEM_GROUP.getKey(), Identifier.of(RulerMod.MOD_ID, <span class="hljs-string">&quot;ruler_group&quot;</span>));<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">ItemGroup</span> <span class="hljs-variable">Ruler_ITEM_GROUP</span> <span class="hljs-operator">=</span> FabricItemGroup.builder()<br>            .icon(() -&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">ItemStack</span>(ModItems.STRAIGHT_RULER))<br>            .displayName(Text.translatable( <span class="hljs-string">&quot;itemGroup.ruler-mod.group_name&quot;</span>))<br>            .build();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在这个代码中，我们声明了一个物品栏类ModItemGroup，以及他的构造函数，还有一个用于获取物品栏的key “RULER_ITEM_GROUP_KEY”，以及物品栏本身 “Ruler_ITEM_GROUP”。</p>
+<p>接下来还是老样子，进行注册，我在前面的代码已经包括了这部分的内容，分别在RulerMod和ModItems中进行注册</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//RulerMod.cs</span><br><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onInitialize</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">// 注册所有测量工具</span><br>    ModItems.register();<br>    ParticleManager.init();<br>    <span class="hljs-comment">//注册物品栏</span><br>    ModItemGroup.registerModItemGroup();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//ModItems.cs</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">register</span><span class="hljs-params">()</span> &#123;<br>    Registry.register(Registries.ITEM, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Identifier</span>(<span class="hljs-string">&quot;ruler-mod&quot;</span>, <span class="hljs-string">&quot;straight_ruler&quot;</span>), STRAIGHT_RULER);<br>    Registry.register(Registries.ITEM, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Identifier</span>(<span class="hljs-string">&quot;ruler-mod&quot;</span>, <span class="hljs-string">&quot;laser_rangefinder&quot;</span>), LASER_RANGEFINDER);<br>    Registry.register(Registries.ITEM, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Identifier</span>(<span class="hljs-string">&quot;ruler-mod&quot;</span>, <span class="hljs-string">&quot;laser_ruler&quot;</span>), LASER_RULER);<br>    Registry.register(Registries.ITEM_GROUP, RULER_ITEM_GROUP_KEY, Ruler_ITEM_GROUP);<br><span class="hljs-comment">//上面的代码是注册物品，下面这一行是注册物品栏</span><br>    ItemGroupEvents.modifyEntriesEvent(RULER_ITEM_GROUP_KEY).register(ModItems::addItemsToIG);<br>&#125;<br><span class="hljs-comment">//添加到物品栏</span><br><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">addItemsToIG</span><span class="hljs-params">(FabricItemGroupEntries fabricItemGroupEntries)</span> &#123;<br>    fabricItemGroupEntries.add(STRAIGHT_RULER);<br>    fabricItemGroupEntries.add(LASER_RANGEFINDER);<br>    fabricItemGroupEntries.add(LASER_RULER);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="7-自定义配方"><a href="#7-自定义配方" class="headerlink" title="7.自定义配方"></a>7.自定义配方</h3><p>增加自定义物品栏后，我们能在创造模式下获得我们的物品了，但是生存模式并不行，所有接下来我们要添加对应的配方。</p>
+<p>fabric有一个自动生成配方的方式，用代码的方式配置之后， 就会自动生成对应的json文件。但是那样比较麻烦，我还没弄明白，加上这个mod的内容较少，所以选择直接自己写json文件：</p>
+<p>目录为resources&#x2F;data&#x2F;ruler-mod&#x2F;recipes&#x2F;straight_ruler.json，名字也跟之前一样</p>
+<p>不过要注意的是这里的写法只适用于1.20~1.20.4，低版本我并没有进行测试，但是高版本中高版本好像说recipes是recipe；结果 item是id。我也还没有进行测试</p>
+<p>下面的”B” “G”是可以自己随便改的，只是一个指代符号。对应的物品id可以上wiki查找</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs css">//straight_ruler<br>&#123;<br>  &quot;type&quot;: <span class="hljs-string">&quot;minecraft:crafting_shaped&quot;</span>,<br>  <span class="hljs-string">&quot;pattern&quot;</span>: [<br>    <span class="hljs-string">&quot; GG&quot;</span>,<br>    <span class="hljs-string">&quot;GBG&quot;</span>,<br>    <span class="hljs-string">&quot;GG &quot;</span><br>  ],<br>  <span class="hljs-string">&quot;key&quot;</span>: &#123;<br>    &quot;<span class="hljs-selector-tag">B</span>&quot;: &#123;<br>      &quot;item&quot;: <span class="hljs-string">&quot;minecraft:black_dye&quot;</span><br>    &#125;,<br>    &quot;<span class="hljs-selector-tag">G</span>&quot;: &#123;<br>      &quot;item&quot;: <span class="hljs-string">&quot;minecraft:glass_pane&quot;</span><br>    &#125;<br>  &#125;,<br>  &quot;result&quot;: &#123;<br>    &quot;item&quot;: <span class="hljs-string">&quot;ruler-mod:straight_ruler&quot;</span>,<br>    <span class="hljs-string">&quot;count&quot;</span>: <span class="hljs-number">1</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="8-本地化"><a href="#8-本地化" class="headerlink" title="8.本地化"></a>8.本地化</h3><p>翻看前面的代码可以看见，当我向玩家发送信息时，用的是 player.sendMessage(Text.translatable(“message.ruler-mod.measure_distance” ,这里的“message.ruler-mod.measure_distance”就是用来本地化的内容。</p>
+<p>通过在resources&#x2F;assets&#x2F;ruler-mod&#x2F;lang&#x2F;zh_cn.json中定义相关的翻译，即可根据游戏的语言显示对应的语言.<br>.zh_cn对应的是中文,en_us就是英文</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">//zh_cn.json<br>&#123;<br>  <span class="hljs-string">&quot;item.ruler-mod.straight_ruler&quot;</span>: <span class="hljs-string">&quot;直尺&quot;</span>,<br>  <span class="hljs-string">&quot;item.ruler-mod.laser_rangefinder&quot;</span>: <span class="hljs-string">&quot;激光测距仪&quot;</span>,<br>  <span class="hljs-string">&quot;item.ruler-mod.laser_ruler&quot;</span>: <span class="hljs-string">&quot;激光直尺&quot;</span>,<br>  <span class="hljs-string">&quot;message.ruler-mod.measure_start&quot;</span>: <span class="hljs-string">&quot;§a起点已记录！&quot;</span>,<br>  <span class="hljs-string">&quot;message.ruler-mod.cross_dimension_error&quot;</span>: <span class="hljs-string">&quot;§c尺子不能跨维度使用！&quot;</span>,<br>  <span class="hljs-string">&quot;message.ruler-mod.measure_clear&quot;</span>: <span class="hljs-string">&quot;§a已清除测量标记！&quot;</span>,<br>  <span class="hljs-string">&quot;message.ruler-mod.measure_distance&quot;</span>: <span class="hljs-string">&quot;§a两点间的距离: %1<span class="hljs-variable">$s</span> §a格&quot;</span>,<br>  <span class="hljs-string">&quot;message.ruler-mod.aim_at_block&quot;</span>: <span class="hljs-string">&quot;§c请对准方块使用&quot;</span>,<br>  <span class="hljs-string">&quot;itemGroup.ruler-mod.group_name&quot;</span>: <span class="hljs-string">&quot;尺子&quot;</span><br><br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight smalltalk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs smalltalk">//en_us<br>&#123;<br>  <span class="hljs-comment">&quot;item.ruler-mod.straight_ruler&quot;</span>: <span class="hljs-comment">&quot;Ruler&quot;</span>,<br>  <span class="hljs-comment">&quot;item.ruler-mod.laser_rangefinder&quot;</span>: <span class="hljs-comment">&quot;Laser Rangefinder&quot;</span>,<br>  <span class="hljs-comment">&quot;item.ruler-mod.laser_ruler&quot;</span>: <span class="hljs-comment">&quot;Laser Ruler&quot;</span>,<br>  <span class="hljs-comment">&quot;message.ruler-mod.measure_start&quot;</span>: <span class="hljs-comment">&quot;§aThe starting point is recorded！&quot;</span>,<br>  <span class="hljs-comment">&quot;message.ruler-mod.cross_dimension_error&quot;</span>: <span class="hljs-comment">&quot;§cRulers cannot be used across dimensions！&quot;</span>,<br>  <span class="hljs-comment">&quot;message.ruler-mod.measure_clear&quot;</span>: <span class="hljs-comment">&quot;§aThe measure marker has been cleared！&quot;</span>,<br>  <span class="hljs-comment">&quot;message.ruler-mod.measure_distance&quot;</span>: <span class="hljs-comment">&quot;§aThe distance between the two points : %1$s §ablocks&quot;</span>,<br>  <span class="hljs-comment">&quot;message.ruler-mod.measure_block&quot;</span>: <span class="hljs-comment">&quot;§aBlock:&quot;</span>,<br>  <span class="hljs-comment">&quot;message.ruler-mod.aim_at_block&quot;</span>: <span class="hljs-comment">&quot;§cPlease aim at the block&quot;</span>,<br>  <span class="hljs-comment">&quot;itemGroup.ruler-mod.group_name&quot;</span>: <span class="hljs-comment">&quot;Ruler&quot;</span><br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="五、注意事项"><a href="#五、注意事项" class="headerlink" title="五、注意事项"></a>五、注意事项</h2><ol>
+<li>开发过程中踩了很多坑，其中有一个非常难忘：<strong>默认每一条代码都会在服务端和客户端都计算一次</strong><br>这导致了有的+1操作变成了+2，在刚开始开发时对我造成了很大的困扰，一直找不到bug所在。因此程序中很多地方进行了判断： (world.isClient），判断是客户端才进行执行而服务端不执行。不过我整体的代码对服务器和客户端代码的处理并不严谨，因为涉及的逻辑较少，就有混用的情况.</li>
+<li>单机游戏也相当于同时存在客户端和服务端。一般来说<ol>
+<li>服务端主要负责游戏逻辑处理</li>
+<li>客户端主要负责画面和音效</li>
+</ol>
+</li>
+</ol>
+<h2 id="六、发布"><a href="#六、发布" class="headerlink" title="六、发布"></a>六、发布</h2><p>我分别把mod发布在了,具体发布方式就不赘述了</p>
+<ul>
+<li>github<a target="_blank" rel="noopener" href="https://github.com/Liuliy1/MinecraftRulerMod">Liuliy1&#x2F;MinecraftRulerMod: minecraft直尺mod</a></li>
+<li>curseforge <a target="_blank" rel="noopener" href="https://legacy.curseforge.com/minecraft/mc-mods/ruler">Ruler - Mods - Minecraft - CurseForge</a></li>
+<li>modrinth <a target="_blank" rel="noopener" href="https://modrinth.com/mod/ruler">ruler - Minecraft Mod</a></li>
+</ul>
+<p>至此，复盘结束</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Minecraft直尺mod开发复盘</div>
+      <div>http://example.com/2025/02/25/Minecraft直尺mod开发复盘-1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Liuliy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年2月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
