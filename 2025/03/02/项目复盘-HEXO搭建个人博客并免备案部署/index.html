@@ -1,0 +1,868 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/title.png">
+  <link rel="icon" href="/img/title.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Liuliy">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="HEXO搭建个人博客前言​	很早就想做一个个人网站，但是总是在脑内把这件事想象成非常困难的事情，想着要手写各种效果加上还要备案等杂七杂八的事情，加上又懒，就迟迟没有动工。 ​	这几天闲下来稍微研究了一下，找到了相关的教程，发现用HEXO部署github page作为个人博客十分的简单，其实一天就能搞定。	 ​	但是部署了githu page之后又看不顺眼默认的 username.github.io">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【项目复盘】 HEXO搭建个人博客并免备案部署">
+<meta property="og:url" content="http://example.com/2025/03/02/%E9%A1%B9%E7%9B%AE%E5%A4%8D%E7%9B%98-HEXO%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E5%B9%B6%E5%85%8D%E5%A4%87%E6%A1%88%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:site_name" content="琉璃坊">
+<meta property="og:description" content="HEXO搭建个人博客前言​	很早就想做一个个人网站，但是总是在脑内把这件事想象成非常困难的事情，想着要手写各种效果加上还要备案等杂七杂八的事情，加上又懒，就迟迟没有动工。 ​	这几天闲下来稍微研究了一下，找到了相关的教程，发现用HEXO部署github page作为个人博客十分的简单，其实一天就能搞定。	 ​	但是部署了githu page之后又看不顺眼默认的 username.github.io">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/title.png">
+<meta property="article:published_time" content="2025-03-02T07:24:00.000Z">
+<meta property="article:modified_time" content="2025-03-02T07:57:44.475Z">
+<meta property="article:author" content="Liuliy">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/img/title.png">
+  
+  
+  
+  <title>【项目复盘】 HEXO搭建个人博客并免备案部署 - 琉璃坊</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>琉璃坊</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【项目复盘】 HEXO搭建个人博客并免备案部署"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-03-02 15:24" pubdate>
+          2025年3月2日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          37 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">【项目复盘】 HEXO搭建个人博客并免备案部署</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="HEXO搭建个人博客"><a href="#HEXO搭建个人博客" class="headerlink" title="HEXO搭建个人博客"></a>HEXO搭建个人博客</h1><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>​	很早就想做一个个人网站，但是总是在脑内把这件事想象成非常困难的事情，想着要手写各种效果加上还要备案等杂七杂八的事情，加上又懒，就迟迟没有动工。</p>
+<p>​	这几天闲下来稍微研究了一下，找到了相关的教程，发现用HEXO部署github page作为个人博客十分的简单，其实一天就能搞定。	</p>
+<p>​	但是部署了githu page之后又看不顺眼默认的 <em>username.github.io</em> 想要一个有自己特色的域名，于是就找到了namesilo去购买域名。	</p>
+<p>​	可之后又发现访问我的网站像不开魔法访问github一样，时灵时不灵，又去查了CDN加速网站。</p>
+<p>​	最后发现制作网站只需要一天，后续工作，修bug反而花了三四天。感觉除了网上教程之外还是有不少东西可以说的,特别是很多被省略的内容但是我这种小白又不懂的，所以就写下这篇复盘。</p>
+<p><strong>看完这篇复盘，我相信99%的人能搭建一个自己的个人博客</strong></p>
+<h1 id="一、使用hexo建站并部署到github-page"><a href="#一、使用hexo建站并部署到github-page" class="headerlink" title="一、使用hexo建站并部署到github page"></a>一、使用hexo建站并部署到github page</h1><h2 id="1-1-什么是hexo"><a href="#1-1-什么是hexo" class="headerlink" title="1.1 什么是hexo ?"></a>1.1 什么是hexo ?</h2><p>hexo 是github上的一个开源项目 ：<a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo?tab=readme-ov-file">hexojs&#x2F;hexo：一个快速、简单且强大的博客框架，由Node.js提供支持。</a></p>
+<p>在他的<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/">官方网站</a>写的是：<strong>Hexo 是一个快速、简单且功能强大的博客框架。你用 <a target="_blank" rel="noopener" href="http://daringfireball.net/projects/markdown/">Markdown</a>（或其他标记语言）写文章，Hexo 会在几秒钟内生成具有漂亮主题的静态文件。</strong></p>
+<p>它提供了强大的API，有大量的模板，主题和插件，能够很方便的一键部署到github page等网站。</p>
+<p>甚至你一定html都不会写，都能做出自己的网站（只需要知道一点markdown语法）</p>
+<p>只需要知道四个hexo 指令（别复制后面的中文）,每当有什么更改，最好都运行一下前三个指令，保证更改能生效</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">hexo clean 清除缓存<br>hexo <span class="hljs-selector-tag">g</span> 生成页面<br>hexo s 启动hexo服务器<br>hexo d 推送到github <span class="hljs-attribute">page</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-2-如何安装使用？"><a href="#1-2-如何安装使用？" class="headerlink" title="1.2 如何安装使用？"></a>1.2 如何安装使用？</h2><p>因为hexo是基于Node.js的，所以我们需要先安装Node.js</p>
+<p>然后要部署到github page上，我们也要安装git</p>
+<p>最后再通过<code> npm install -g hexo-cli</code> 安装hexo</p>
+<p>在这一步我是参考 CSDN上的教程： <a target="_blank" rel="noopener" href="https://blog.csdn.net/cat_bayi/article/details/128725230">Hexo教程，看这一篇就够了- How to系列-CSDN博客</a></p>
+<p>可以先移步阅读csdn教程</p>
+<p>因为这教程写的非常好，教程中已有的内容我就不过多赘述了。只对教程中没有的内容进行补充：</p>
+<h3 id="安装时报错？"><a href="#安装时报错？" class="headerlink" title="安装时报错？"></a>安装时报错？</h3><p>​	在Windows 系统中，是通过Windows PowerShell进行安装的，其中绝大多数的命令都要使用到管理员权限，不然就会报错。</p>
+<p>​	所以如果用WIN+R打开的power shell输入命令报错的话，可以点WIN键直接搜索Power shell然后选择以管理员身份运行，参考图1-1</p>
+<p><img src="/img/project/blog/1-1.png" srcset="/img/loading.gif" lazyload alt="img1-1"></p>
+<center>【图1-1】</center>
+
+
+
+<h3 id="无法安装admin等插件？"><a href="#无法安装admin等插件？" class="headerlink" title="无法安装admin等插件？"></a>无法安装admin等插件？</h3><p>​	注意在安装完hexo后，创建项目以及后续的安装hexo-admin插件都需要cd到网站目录中进行。比如我是 <code>cd E:\Work\Blog</code></p>
+<h3 id="如何修改网站模板？"><a href="#如何修改网站模板？" class="headerlink" title="如何修改网站模板？"></a>如何修改网站模板？</h3><p>​	在选择主题时，不一定要按照教程中使用的Fluild的主题。只要记住使用所有主题之前，都先去查看官方的配置文档。比如<a target="_blank" rel="noopener" href="https://hexo.fluid-dev.com/docs/">Fluid的配置文档</a>。<br>​	因为教程作者的教程可能会过期，导致某些语句改变并失效，但是官方文档肯定会更新的；</p>
+<p>​	这里粘贴一下官方文档比较重要的内容：</p>
+<p><img src="/img/project/blog/1-2.png" srcset="/img/loading.gif" lazyload alt="1-2"></p>
+<center>【图1-2】</center>
+
+
+<p><img src="/img/project/blog/1-3.png" srcset="/img/loading.gif" lazyload alt="1-3"></p>
+<center>【图1-3】</center>
+
+
+<p>​	理解了图1-2和图1-3中的内容后，阅读文档中大部分内容并实操就不成问题了。</p>
+<p>​	再补充一下如何为文章添加标签和分类</p>
+<h4 id="添加标签和分类："><a href="#添加标签和分类：" class="headerlink" title="添加标签和分类："></a>添加标签和分类：</h4><p>如果你是通过hexo-admin写文章，那么如图1-4所示，在右上角的小齿轮处，就可以添加分类和标签</p>
+<p><img src="/img/project/blog/1-4.png" srcset="/img/loading.gif" lazyload alt="1-4"></p>
+ <center>【图1-4】</center>
+
+
+<p>如果是在本地新建文件，只需要在Front-matter处，也就是三个小横线”<strong>—</strong>“之前粘贴下面的内容，即可添加：</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs subunit"><span class="hljs-keyword">tags:</span><br>  - 你的标签<br>categories:<br>  - 你的类别<br></code></pre></td></tr></table></figure>
+
+<h5 id="分类和标签的书写规则"><a href="#分类和标签的书写规则" class="headerlink" title="分类和标签的书写规则"></a>分类和标签的书写规则</h5><p>只有文章支持分类和标签。 分类按顺序应用于文章，从而形成<strong>分类和子分类</strong>的层次结构。 标签是在相同的层次结构上定义的，因此它们的出现顺序不重要。</p>
+<p><strong>示例</strong> (通过admin页面添加分类和标签默认是这种格式)</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs subunit">categories:<br>  - Sports<br>  - Baseball<br><span class="hljs-keyword">tags:</span><br>  - Injury<br>  - Fight<br>  - Shocking<br></code></pre></td></tr></table></figure>
+
+<p>如果你想应用多个分类层次结构，请使用一个名称列表而不是一个单个名称。 如果 Hexo 在帖子上看到像这种方式定义的分类，它会将该帖子的每个分类视为其自己的独立层次结构。</p>
+<p><strong>示例</strong></p>
+<figure class="highlight nestedtext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs nestedtext"><span class="hljs-attribute">categories</span><span class="hljs-punctuation">:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">[Sports, Baseball]</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">[MLB, American League, Boston Red Sox]</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">[MLB, American League, New York Yankees]</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-string">Rivalries</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="如何显示或隐藏菜单页面"><a href="#如何显示或隐藏菜单页面" class="headerlink" title="如何显示或隐藏菜单页面"></a>如何显示或隐藏菜单页面</h5><p>在网站默认的导航栏中,有 首页、归档、分类、标签、关于（需要创建）这几个菜单，如果我们想添加或隐藏其中的内容，只需要在_config.fluid.yml中找到menu的配置，按照相同的格式进行增加或修改就好了。</p>
+<p>下面是我的例子，我将“标签”页这一行注释掉了，所以菜单上就不显示标签</p>
+<figure class="highlight sas"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sas">menu:<br>  - &#123; <span class="hljs-keyword">key</span>: <span class="hljs-string">&quot;home&quot;</span>, <span class="hljs-keyword">link</span>: <span class="hljs-string">&quot;/&quot;</span>, icon: <span class="hljs-string">&quot;iconfont icon-home-fill&quot;</span> &#125;<br>  - &#123; <span class="hljs-keyword">key</span>: <span class="hljs-string">&quot;category&quot;</span>, <span class="hljs-keyword">link</span>: <span class="hljs-string">&quot;/categories/&quot;</span>, icon: <span class="hljs-string">&quot;iconfont icon-category-fill&quot;</span> &#125;<br>  - &#123; <span class="hljs-keyword">key</span>: <span class="hljs-string">&quot;archive&quot;</span>, <span class="hljs-keyword">link</span>: <span class="hljs-string">&quot;/archives/&quot;</span>, icon: <span class="hljs-string">&quot;iconfont icon-archive-fill&quot;</span> &#125;<br>  # - &#123; <span class="hljs-keyword">key</span>: <span class="hljs-string">&quot;tag&quot;</span>, <span class="hljs-keyword">link</span>: <span class="hljs-string">&quot;/tags/&quot;</span>, icon: <span class="hljs-string">&quot;iconfont icon-tags-fill&quot;</span> &#125;<br>  - &#123; <span class="hljs-keyword">key</span>: <span class="hljs-string">&quot;about&quot;</span>, <span class="hljs-keyword">link</span>: <span class="hljs-string">&quot;/about/&quot;</span>, icon: <span class="hljs-string">&quot;iconfont icon-user-fill&quot;</span> &#125;<br>  #- &#123; <span class="hljs-keyword">key</span>: <span class="hljs-string">&quot;links&quot;</span>, <span class="hljs-keyword">link</span>: <span class="hljs-string">&quot;/links/&quot;</span>, icon: <span class="hljs-string">&quot;iconfont icon-link-fill&quot;</span> &#125;<br></code></pre></td></tr></table></figure>
+
+<p>其他未提到的内容就看配置文件和官方文档都能解决</p>
+<h2 id="1-3部署github-page"><a href="#1-3部署github-page" class="headerlink" title="1.3部署github page"></a>1.3部署github page</h2><p>在所有工作都做完之后，我们安装好了 hexo-deployer-git插件，创建好了我们的github仓库，在图1-5所示的配置文件中将“repo: “ 后面的内容改成我们仓库对应的https地址。我们就可以推送了。</p>
+<p><img src="/img/project/blog/1-5.png" srcset="/img/loading.gif" lazyload alt="1-5"></p>
+<center>【图1-5】</center>
+
+
+<p>建议每次推送前都要 hexo clean + hexo g一遍，保证推送的内容是最新的。</p>
+<p>如果推送顺利，过一会我们就可以访问到我们的网站了，通过 username.github.io。比如我的liuliy1.github.io</p>
+<p>当然，前提是推送顺利，也有可能会出现不顺利的情况，比如报错 <strong>”fatal: unable to access“</strong>。这种情况主要是网络问题，没法访问到github，而不是自身项目问题，遇到这种情况最简单的方法是多推送几遍，有可能就成功了。如果不成功，那就再用下面的方法。</p>
+<h3 id="解决推送失败"><a href="#解决推送失败" class="headerlink" title="解决推送失败"></a>解决推送失败</h3><p>方法一：取消代理设置</p>
+<p>通过在终端执行以下命令，取消 Git 的代理设置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config --global --<span class="hljs-built_in">unset</span> http.proxy <br>git config --global --<span class="hljs-built_in">unset</span> https.proxy<br></code></pre></td></tr></table></figure>
+
+<p>方法二：设置系统代理</p>
+<p>打开系统设置，直接搜索 <strong>更改代理设置</strong>, 启用代理服务器，然后将端口设置为 7890</p>
+<p><img src="/img/project/blog/1-6.png" srcset="/img/loading.gif" lazyload alt="1-6"></p>
+<center>【图1-6】</center>
+
+
+<p><img src="/img/project/blog/1-7.png" srcset="/img/loading.gif" lazyload alt="1-7"></p>
+<center>【图1-7】</center>
+
+
+<p>接着在终端输入命令，设置 Git 使用本地代理</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">git config <span class="hljs-attr">--global</span> http<span class="hljs-selector-class">.proxy</span> http:<span class="hljs-comment">//127.0.0.1:7890</span><br></code></pre></td></tr></table></figure>
+
+<p> 设置完成后，可以通过以下命令检验是否设置成功：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config --global -l<br></code></pre></td></tr></table></figure>
+
+
+
+<p>然后我们就能够正常推送了，这里需要注意的一点，推送后的内容可能并不立马更新，有一定的延迟。</p>
+<p>如果只想有一个个人博客，到刚才的那一步就已经结束了。</p>
+<p>现在来解决如何让网站显得更加专业，更有个人特色——设置自定义域名</p>
+<h1 id="二、自定义域名"><a href="#二、自定义域名" class="headerlink" title="二、自定义域名"></a>二、自定义域名</h1><h2 id="2-1-域名是什么"><a href="#2-1-域名是什么" class="headerlink" title="2.1 域名是什么"></a>2.1 域名是什么</h2><p>简单来说，域名就是一种映射，互联网通过ip地址来定位服务器，一个域名能对应一个ip地址，所以我们能通过域名来访问服务器。</p>
+<p>所以我们现在的目的就是，购买一个域名，将我们的username.github.io 与这个域名建立映射，这样访问我们的自定义域名就能访问到我们的网站。</p>
+<h2 id="2-2购买域名"><a href="#2-2购买域名" class="headerlink" title="2.2购买域名"></a>2.2购买域名</h2><p>域名的服务商有很多，我这里选择的是国外的**<a target="_blank" rel="noopener" href="https://www.namesilo.com/">NameSilo</a>**，据说是国外的域名服务商中最便宜的。</p>
+<p>之所以不选择国内的域名服务商是因为国内域名都是需要先备案才能使用的，而备案就更加麻烦，还需要有服务器（要钱。</p>
+<p>而且github属于国外的服务器，也无法使用国内的域名。</p>
+<p>用法如下：</p>
+<ol>
+<li>先直接在NameSilo官网搜索是否有你想要的域名，如图1-8所示，网站会给出不同顶级域名的不同价格，如果没有要求选择最便宜的就好。</li>
+</ol>
+<p><img src="/img/project/blog/2-1.png" srcset="/img/loading.gif" lazyload alt="2-1"></p>
+<center>【图2-1】</center>
+
+
+<ol start="2">
+<li><p>然后就是正常的注册账号，填写相关信息时，地址无法输入中文，输入拼音即可。</p>
+</li>
+<li><p>注册完就可以支付了，没有什么需要特别注意的选项，正常下单支付就行，可以选择支付宝付款。</p>
+<p><img src="/img/project/blog/2-2.png" srcset="/img/loading.gif" lazyload alt="2-2"></p>
+<center>【图2-2】</center></li>
+</ol>
+<h2 id="2-3设置DNS解析"><a href="#2-3设置DNS解析" class="headerlink" title="2.3设置DNS解析"></a>2.3设置DNS解析</h2><p>当我们完成购买后，在我们个人账号信息中就可以看到我们有一个活跃的域名，如图2-3，我们直接点击Manage进入管理界面。</p>
+<p><img src="/img/project/blog/2-3.png" srcset="/img/loading.gif" lazyload alt="2-3"></p>
+<center>【图2-3】</center>
+
+
+
+
+<p>进入图2-4所示界面后，点击右侧的蓝色小球进入图2-4的设置DNS解析页面</p>
+<p><img src="/img/project/blog/2-4.png" srcset="/img/loading.gif" lazyload alt="2-4"></p>
+<center>【图2-4】</center>
+ 
+<p><img src="/img/project/blog/2-5.png" srcset="/img/loading.gif" lazyload alt="2-5"></p>
+<center>【图2-5】</center>
+这里不需要在意上面已经写的内容，直接向下拉，找到github，然后应用。这是namesilo提供的常用网站的模板，会自动填充github服务器的四个A记录，将域名直接映射到github服务器.
+
+
+<p><img src="/img/project/blog/2-6.png" srcset="/img/loading.gif" lazyload alt="2-6"></p>
+<center>【图2-6】</center>
+
+<h2 id="2-4-github配置"><a href="#2-4-github配置" class="headerlink" title="2.4 github配置"></a>2.4 github配置</h2><p>剩下的部分就很简单了，我们只需要在我们的网页指定这个域名，就能将域名与我们的网页连通起来了。</p>
+<p>先进入网站对应的仓库，点击Setting</p>
+<p><img src="/img/project/blog/2-7.png" srcset="/img/loading.gif" lazyload alt="2-7"></p>
+<center>【图2-7】</center>
+
+<p>然后选择Pages,拉到最下面，Custom domain的位置，输入我们购买的域名，保存并等待一段时间（可能是好几个小时）之后，我们就可以通过域名访问到我们之前创建的个人博客了。</p>
+<p><img src="/img/project/blog/2-8.png" srcset="/img/loading.gif" lazyload alt="2-8"></p>
+<center>【图2-8】</center>
+
+
+
+<p><img src="/img/project/blog/2-9.png" srcset="/img/loading.gif" lazyload alt="2-9"></p>
+<center>【图2-9】</center>
+
+
+
+<h1 id="三、-CDN加速网站"><a href="#三、-CDN加速网站" class="headerlink" title="三、 CDN加速网站"></a>三、 CDN加速网站</h1><p>由于我们是用github部署的网站，github又是外国服务器，所以普通用户想访问我们的网站可能会出现访问不上或者及其卡顿的问题，这个时候就需要用到CDN来加速我们网站的访问。</p>
+<p><u><em>当然，这一步也可以省略，毕竟我们的网站已经可以访问了。</em></u></p>
+<h2 id="3-1CDN是什么？"><a href="#3-1CDN是什么？" class="headerlink" title="3.1CDN是什么？"></a>3.1CDN是什么？</h2><p><strong>CDN（Content Delivery Network，内容分发网络）</strong> 是一种通过全球分布的服务器网络，将内容（如网页、图片、视频等）缓存到离用户更近的节点，从而加速访问速度、降低延迟并提升稳定性的技术体系。</p>
+<p>简单来说，就是把我们网页的缓存存储到不同的地方，当我们要访问网页时，可以直接从最近的缓存访问网页，而不需要跨越漫长的距离访问服务器。</p>
+<p>当我们的网页更新时，这些缓存也要定时更新</p>
+<h2 id="3-2如何配置CDN"><a href="#3-2如何配置CDN" class="headerlink" title="3.2如何配置CDN"></a>3.2如何配置CDN</h2><p>我这里以<strong>腾讯云</strong>为例</p>
+<p>注册完账号之后，点开图3-1所示的内容分发网络CDN，它会提示有一个edgeone的14天免费试用 也就是图3-1中的边缘安全加速平台 EO，我这里就以这个试用为例子，当然如果选择不试用，继续开通CDN其实也是差不多的操作。</p>
+<p>至于14天后是继续续费还是更换CDN那都不是什么问题，毕竟已经知道操作流程了。</p>
+<p><img src="/img/project/blog/3-1.png" srcset="/img/loading.gif" lazyload alt="3-1"></p>
+<center>【图3-1】</center>
+
+
+
+<p>之后选择如图3-2所示站点列表，新增站点，这里注意添加时要选择全球区</p>
+<p><img src="/img/project/blog/3-2.png" srcset="/img/loading.gif" lazyload alt="3-2"></p>
+<center>【图3-2】</center>
+
+<p>第一次添加的时候，可能会要你在dns管理处添加txt来验证域名的所有权，这个时候回到namesilo添加txt就行了，验证完了之后就可以删掉那一条</p>
+<p><img src="/img/project/blog/3-3.png" srcset="/img/loading.gif" lazyload alt="3-3"></p>
+<center>【图3-3】</center>
+
+<p>接着点击域名管理，添加域名，记得选择HTTPS，如图3-4所示</p>
+<p><img src="/img/project/blog/3-4.png" srcset="/img/loading.gif" lazyload alt="3-4"></p>
+<center>【图3-4】</center>
+
+<p><img src="/img/project/blog/3-5.png" srcset="/img/loading.gif" lazyload alt="3-5"></p>
+<center>【图3-5】</center>
+
+
+
+<p>这里选择源站组，第一次添加域名时，我们要手动创建源站组，照着图3-6填就是了。就是将之前dns解析的四个a记录填入</p>
+<p>名字可以随便起，但是源站组类型 <strong>一定，必须</strong>选 <strong>通用型</strong>。这折腾了我非常长的时间</p>
+<p>ip如下：</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">185.199.108.153</span><br><span class="hljs-number">185.199.109.153</span><br><span class="hljs-number">185.199.110.153</span><br><span class="hljs-number">185.199.111.153</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/project/blog/3-6.png" srcset="/img/loading.gif" lazyload alt="3-6"></p>
+<center>【图3-6】</center>
+
+
+
+<p>添加完源站组后，就可以去添加域名了,参考刚才的图3-5，这里也是记得选HTTPS.</p>
+<p>这里简单补充一下http和https的区别：</p>
+<p>https是有加密的，比http更加安全，当浏览器访问https的网页时，左上角能有一个安全锁的图标；但是当访问http的网页时，会直接提示你<strong>网站不安全</strong>，显得非常不专业。</p>
+<p>除此之外，cdn这里选择https还有一个重要的原因：</p>
+<p>​	前面我们在github配置自定义域名时，启用了强制https。如果这里的源站组是http专用型，就会出现冲突。导致用户在访问网页时 进入http然后重定向到https，又被强制重定向成http。导致重定向过多，完全无法访问。就像写了一个while（1)循环一样。也要注意CDN<strong>不要启用强制HTTPS</strong>，会与github的冲突</p>
+<p>当我们网站访问不了时，我们可以在<a target="_blank" rel="noopener" href="https://www.redirect-checker.org/index.php">Redirect Checker </a>这个网站验证是否是重定向过多导致的问题，</p>
+<p>​	如果是 则会提示 301报错</p>
+<p>​	如果网站正常，则会显示 200 OK</p>
+<h2 id="3-3申请证书"><a href="#3-3申请证书" class="headerlink" title="3.3申请证书"></a>3.3申请证书</h2><p>回归正文，添加完域名后，我们就可以为我们的网站颁发证书了。此时点击左上角的三横线的菜单，找到ssl证书，然后申请免费证书。</p>
+<p><img src="/img/project/blog/3-7.png" srcset="/img/loading.gif" lazyload alt="3-7"></p>
+<center>【图3-7】</center>
+
+<p>然后一步步填写内容就好了，这里还需要像前面提到的，在namesilo填入txt进行验证。</p>
+<p><img src="/img/project/blog/3-8.png" srcset="/img/loading.gif" lazyload alt="3-8"></p>
+<center>【图3-8】</center>
+
+<p>申请完证书后，我们回到域名管理界面，点击批量配置证书，然后点击证书再选择我们的刚刚创建的域名。</p>
+<p><img src="/img/project/blog/3-9.png" srcset="/img/loading.gif" lazyload alt="3-9"></p>
+<center>【图3-9】</center>
+
+<p>然后就到了最后一步，配置CNAME。</p>
+<p>在域名管理界面会提供一个CNAME，这个时候的状态是等待配置CNAME，我们将CNAME复制，然后打开NameSilo的DNS解析界面，选择CNAME粘贴并添加</p>
+<p><img src="/img/project/blog/3-10.png" srcset="/img/loading.gif" lazyload alt="3-10"></p>
+<center>【图3-10】</center>
+
+<p><img src="/img/project/blog/3-11.png" srcset="/img/loading.gif" lazyload alt="3-11"></p>
+<center>【图3-11】</center>
+
+<p><u>这个时候需要注意，要把我们第二步自定义域名给的四个A地址给删除，不然解析会出现问题。</u></p>
+<p>接下来只需要等待几个小时，去睡个觉，回来就发现我们的网站能够快速访问了。</p>
+<p>这里可以用<a target="_blank" rel="noopener" href="https://dnschecker.org/#CNAME/www.liuliygames.top">DNS Checker</a> 来检测我们的CDN是否配置成功了，如果输入我们域名后，显示的是CDN给出的CNAME，那就是配置成功了。</p>
+<h2 id="3-4缓存设置"><a href="#3-4缓存设置" class="headerlink" title="3.4缓存设置"></a>3.4缓存设置</h2><p>我们前面提到了CDN是通过在不同的服务器缓存我们的网页来实现快速访问的，那我们要更新网页的时候怎么办呢。</p>
+<p><img src="/img/project/blog/3-12.png" srcset="/img/loading.gif" lazyload alt="3-12"></p>
+<center>【图3-12】</center>
+
+<p>我们点击左侧的站点加速，去配置我们的缓存规则,在文件后缀等于html时，设置不缓存（这里默认是没有html的）。</p>
+<p>还有节点缓存时间，设置多久会自动更新，这个时间设置的短的话会增大我们的流量消耗（会计费的）</p>
+<p>如果设置的长的话，可能我们更新了网页后，用户访问我们的网站还是旧版的，自己权衡就好。</p>
+<p><img src="/img/project/blog/3-13.png" srcset="/img/loading.gif" lazyload alt="3-13"></p>
+<center>【图3-13】</center>
+
+<p>如果我们推送了新内容，想让网页立马能够更新呢，就直接选择清除缓存，这样CDN会自己调用新的服务器数据去更新缓存。</p>
+<p><img src="/img/project/blog/3-14.png" srcset="/img/loading.gif" lazyload alt="3-14"></p>
+<center>【图3-14】</center>
+
+
+
+<h1 id="四、补充说明"><a href="#四、补充说明" class="headerlink" title="四、补充说明"></a>四、补充说明</h1><p>当我们推送新内容时，可能会出现怎么样按照刚才的缓存进行操作都不能更新，并且能通过username.github.io去访问我们的网站，我们回到第二步自定义域名的地方会发现我们自定义域名被清空了。</p>
+<p>这个时候就是我们githubpage的CNAME被推送覆盖掉了。当我们在github上设置自定义域名时，会在文件根目录创建一个CNAME，里面就写着我们自定义的域名，但是我们hexo中是没有的，所以一推送新内容就会替换掉。</p>
+<p>解决这个问题的方法就是在source下新建一个CNAME文件，填入域名，这样每次我们输入hexo g的时候，都会在public目录下创建一个CNAME，这样hexo d就能将CNAME推送到github上了。</p>
+<h1 id="参考，引用文献"><a href="#参考，引用文献" class="headerlink" title="参考，引用文献"></a>参考，引用文献</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/cat_bayi/article/details/128725230">Hexo教程，看这一篇就够了- How to系列-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43546721/article/details/139506583">完美解决 git 报错 “fatal: unable to access ‘https://github.com/.../.git‘: Recv failure Connection was rese-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/393050270">Github 部署个人网页 | 自定义域名 - 知乎</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/393779644">Github 部署 | CDN 加速网页，速度嗖嗖的快！ - 知乎</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%A1%B9%E7%9B%AE%E5%A4%8D%E7%9B%98/" class="category-chain-item">项目复盘</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【项目复盘】 HEXO搭建个人博客并免备案部署</div>
+      <div>http://example.com/2025/03/02/项目复盘-HEXO搭建个人博客并免备案部署/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Liuliy</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年3月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/02/26/%E3%80%90%E5%9B%A2%E9%98%9F%E9%A1%B9%E7%9B%AE%E5%8F%91%E5%B8%83%E3%80%91%E6%B8%B8%E6%88%8F%E5%8F%91%E5%B8%83-%E3%80%8A%E6%BA%AF%E6%BA%90%C2%B7%E6%95%B0%E7%BC%98%E3%80%8B/" title="【团队项目】游戏发布-《溯源·数源》">
+                        <span class="hidden-mobile">【团队项目】游戏发布-《溯源·数源》</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+      
+
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
